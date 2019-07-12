@@ -56,7 +56,7 @@ namespace Oxide.Plugins
                 return;
             }
 
-            var members = new List<string>();
+            List<string> members = new List<string>();
             foreach(JToken member in clanMembers)
             {
                 var mPlayer = Interface.Oxide.GetLibrary<Covalence>().Players?.FindPlayerById((string) member)?.Name;
