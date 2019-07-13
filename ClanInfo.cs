@@ -7,7 +7,7 @@ using System.Collections.Generic;
  
 namespace Oxide.Plugins
 {
-    [Info("Clan info", "Bazz3l", "1.0.0")]
+    [Info("Clan info", "Bazz3l", "1.0.1")]
     [Description("List all clan members in a given clan")]
     class ClanInfo : RustPlugin
     {
