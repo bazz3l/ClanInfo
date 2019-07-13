@@ -20,11 +20,11 @@ namespace Oxide.Plugins
         #endregion
 
         #region Oxide
-        private void LoadDefaultMessages()
+        protected override void LoadDefaultMessages()
         {
             lang.RegisterMessages(new Dictionary<string, string>
             {
-                ["Message"] = "Clan: <color=#999>{0}</color> Members:\n{1}",
+                ["Message"] = "Clan: {0} Members:\n{1}",
                 ["NotFound"] = "No clan found",
                 ["NoTag"] = "No clan tag specified"
             }, this);
@@ -59,7 +59,7 @@ namespace Oxide.Plugins
             List<string> members = new List<string>();
             foreach(JToken member in clanMembers)
             {
-                var mPlayer = Interface.Oxide.GetLibrary<Covalence>().Players?.FindPlayerById((string) member)?.Name;
+                var mPlayer = covalence?.FindPlayerById((string) member)?.Name;
                 if (mPlayer != null)
                     members.Add(mPlayer);
             }
