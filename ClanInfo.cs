@@ -7,9 +7,9 @@ using System.Collections.Generic;
  
 namespace Oxide.Plugins
 {
-    [Info("Clan info", "Bazz3l", "1.0.1")]
+    [Info("Clan info", "Bazz3l", "1.0.2")]
     [Description("List all clan members in a given clan")]
-    class ClanInfo : RustPlugin
+    class ClanInfo : CovalencePlugin
     {
         #region Plugins
         [PluginReference] Plugin Clans;
@@ -24,7 +24,7 @@ namespace Oxide.Plugins
         {
             lang.RegisterMessages(new Dictionary<string, string>
             {
-                ["Message"] = "Clan: {0} Members:\n{1}",
+                ["Message"] = "Clan: <color=#999>{0}</color> Members:\n{1}",
                 ["NotFound"] = "No clan found",
                 ["NoTag"] = "No clan tag specified"
             }, this);
@@ -39,32 +39,32 @@ namespace Oxide.Plugins
         #endregion
 
         #region Chat Commands
-        [ChatCommand("claninfo")]
-        private void cmdCinfo(BasePlayer player, string command, string[] args)
+        [Command("cinfo")]
+        private void cmdCinfo(IPlayer player, string command, string[] args)
         {
-            if (!permission.UserHasPermission(player.UserIDString, Perm)) return;
+            if (!permission.UserHasPermission(player.Id, Perm)) return;
             if (args.Length < 1)
             {
-                PrintToChat(player, Lang("NoTag"));
+                player.Reply(Lang("NoTag"));
                 return;
             }
 
             JArray clanMembers = GetClanMembers(args[0]);
             if (clanMembers == null)
             {
-                PrintToChat(player, Lang("NotFound"));
+                player.Reply(Lang("NotFound"));
                 return;
             }
 
             List<string> members = new List<string>();
             foreach(JToken member in clanMembers)
             {
-                var mPlayer = covalence?.FindPlayerById((string) member)?.Name;
+                var mPlayer = covalence.Players?.FindPlayerById((string) member)?.Name;
                 if (mPlayer != null)
                     members.Add(mPlayer);
             }
 
-            PrintToChat(player, Lang("Message", null, args[0], string.Join("\n", members.ToArray())));
+            player.Reply(Lang("Message", null, args[0], string.Join("\n", members.ToArray())));
         }
         #endregion
 
