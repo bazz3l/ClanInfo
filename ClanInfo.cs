@@ -7,7 +7,7 @@ using System.Collections.Generic;
  
 namespace Oxide.Plugins
 {
-    [Info("Clan info", "Bazz3l", "1.0.2")]
+    [Info("Clan info", "Bazz3l", "1.0.3")]
     [Description("List all clan members in a given clan")]
     class ClanInfo : CovalencePlugin
     {
@@ -24,7 +24,7 @@ namespace Oxide.Plugins
         {
             lang.RegisterMessages(new Dictionary<string, string>
             {
-                ["Message"] = "Clan: <color=#999>{0}</color> Members:\n{1}",
+                ["Message"] = "Clan: [#999999]{0}[/#] Members:\n{1}",
                 ["NotFound"] = "No clan found",
                 ["NoTag"] = "No clan tag specified"
             }, this);
@@ -45,14 +45,14 @@ namespace Oxide.Plugins
             if (!permission.UserHasPermission(player.Id, Perm)) return;
             if (args.Length < 1)
             {
-                player.Reply(Lang("NoTag"));
+                player.Reply(Lang("NoTag", player.Id));
                 return;
             }
 
             JArray clanMembers = GetClanMembers(args[0]);
             if (clanMembers == null)
             {
-                player.Reply(Lang("NotFound"));
+                player.Reply(Lang("NotFound", player.Id));
                 return;
             }
 
@@ -64,7 +64,7 @@ namespace Oxide.Plugins
                     members.Add(mPlayer);
             }
 
-            player.Reply(Lang("Message", null, args[0], string.Join("\n", members.ToArray())));
+            player.Reply(Lang("Message", player.Id, args[0], string.Join("\n", members.ToArray())));
         }
         #endregion
 
