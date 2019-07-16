@@ -7,7 +7,7 @@ using System.Collections.Generic;
  
 namespace Oxide.Plugins
 {
-    [Info("Clan info", "Bazz3l", "1.0.3")]
+    [Info("Clan Info", "Bazz3l", "1.0.4")]
     [Description("List all clan members in a given clan")]
     class ClanInfo : CovalencePlugin
     {
