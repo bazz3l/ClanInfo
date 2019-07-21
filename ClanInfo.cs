@@ -1,3 +1,5 @@
+// Requires: Clans
+
 using Newtonsoft.Json.Linq;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Core.Plugins;
@@ -7,7 +9,7 @@ using System.Collections.Generic;
  
 namespace Oxide.Plugins
 {
-    [Info("Clan Info", "Bazz3l", "1.0.4")]
+    [Info("Clan Info", "Bazz3l", "1.0.5")]
     [Description("List all clan members in a given clan")]
     class ClanInfo : CovalencePlugin
     {
